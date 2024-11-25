@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 const Header = () => {
-  const { user, logout,loggedUser } = useAuth();
+  const { user, logout, loggedUser } = useAuth();
 
   return (
     <div className=" flex justify-between p-5 text-xl text-center sm:text-left font-semibold shadow-md">
