@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
- const isLoggedIn = (req, res, next) => {
+const isLoggedIn = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -16,7 +16,7 @@ import jwt from "jsonwebtoken";
   }
 };
 
- const isLoggedOut = (req, res, next) => {
+const isLoggedOut = (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (authHeader) {
     return res.status(400).json({ message: "Already logged in!" });

@@ -99,34 +99,31 @@ const UserManagement = () => {
     setEditingRole(editingUser === user ? null : user.role?.name);
   };
 
+  const handleSaveEdit = async (user) => {
+    try {
+      const token = localStorage.getItem("token");
+      const updatedUser = { ...user, status: editingStatus }; //editingRole removed because of backend
+      const role = allRoleData.find((role) => role.name === editingRole);
 
-   const handleSaveEdit = async (user) => {
-     try {
-       const token = localStorage.getItem("token");
-       const updatedUser = { ...user, status: editingStatus }; //editingRole removed because of backend
-       const role = allRoleData.find((role) => role.name === editingRole);
+      if (role) updatedUser.role = role._id;
 
-
-
-       if (role) updatedUser.role = role._id;
-
-       await axios.put(
-         `http://localhost:5000/api/admin/edituser/${user._id}`,
-         updatedUser,
-         { headers: { Authorization: `Bearer ${token}` } }
-       );
-       getAllUsers();
-       Swal.fire({
-         icon: "success",
-         title: "Success",
-         text: "User updated successfully!",
-       });
-       setEditingUser(null);
-     } catch (error) {
-       console.error("Error updating user:", error);
-       message.error("Failed to update user. Please try again later.");
-     }
-   };
+      await axios.put(
+        `http://localhost:5000/api/admin/edituser/${user._id}`,
+        updatedUser,
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      getAllUsers();
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "User updated successfully!",
+      });
+      setEditingUser(null);
+    } catch (error) {
+      console.error("Error updating user:", error);
+      message.error("Failed to update user. Please try again later.");
+    }
+  };
 
   return (
     <div className="bg-white p-4 px-10 rounded shadow-lg">
